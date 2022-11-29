@@ -75,7 +75,7 @@ const serial = async (
                 // >> Importante! você deve ter o aquario de id 1 cadastrado.
 
                 //arrumar dado *now* para a versao -nuvem e setar 
-                sqlquery = `INSERT INTO historicoMedicoes (temperatura, umidade, fkSensor) VALUES (${dht11Temperatura}, ${dht11Umidade}, 1)`;
+                sqlquery = `INSERT INTO historicoMedicoes (dataHora, temperatura, umidade, fkSensor) VALUES (GETDATE() , ${dht11Temperatura}, ${dht11Umidade}, 1)`;
 
                 // CREDENCIAIS DO BANCO REMOTO - SQL SERVER
                 // Importante! você deve ter criado o usuário abaixo com os comandos presentes no arquivo
@@ -99,8 +99,7 @@ const serial = async (
                 // Este insert irá inserir dados de fk_aquario id=1 (fixo no comando do insert abaixo)
                 // >> você deve ter o aquario de id 1 cadastrado.
                 await poolBancoDados.execute(
-                    `INSERT INTO historicoMedicoes (dataHora, temperatura, umidade, fkSensor) VALUES (now(), ${dht11Temperatura}, ${dht11Umidade}, 1)`,
-                    [dht11Umidade, dht11Temperatura]
+                    `INSERT INTO historicoMedicoes (dataHora, temperatura, umidade, fkSensor) VALUES (NOW() , ${dht11Temperatura}, ${dht11Umidade}, 1)`
                 );
                 console.log("valores inseridos no banco: ", dht11Umidade + ", " + dht11Temperatura)
 
